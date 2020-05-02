@@ -8,7 +8,20 @@ import LoggedInMenu from "../Menus/LoggedInMenu"
 import SignedOutMenu from "../Menus/SignedOutMenu"
 import { openModal } from "../../modals/modalActions"
 
+import firebase from "../../../app/config/firebase"
+
 class NavBar extends Component {
+  state = {
+    notificationCount: 0
+  }
+
+  async componentDidMount() {
+    const firestore = firebase.firestore()
+    const eventsRef = await firestore.collection("activity").get()
+    console.log("did mount", eventsRef.docs.length)
+    this.setState({ notificationCount: eventsRef.docs.length })
+  }
+
   handleSignIn = () => {
     this.props.openModal("LoginModal")
   }
@@ -31,7 +44,7 @@ class NavBar extends Component {
         <Container>
           <Menu.Item as={Link} to="/" header>
             <img src="assets/logo.png" alt="logo" />
-            Revents
+            Events App
           </Menu.Item>
           <Menu.Item as={NavLink} to="/events" name="All Events" />
           {authenticated ? (
@@ -47,7 +60,7 @@ class NavBar extends Component {
                   as={Link}
                   to="/createEvent"
                   floated="right"
-                  positive
+                  orange
                   inverted
                   content="Create Event"
                 />
@@ -56,6 +69,7 @@ class NavBar extends Component {
                 key={3}
                 auth={auth}
                 profile={profile}
+                notificationCount={this.state.notificationCount}
                 signOut={this.handleSignOut}
               />
             ]

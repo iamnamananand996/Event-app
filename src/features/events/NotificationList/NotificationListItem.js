@@ -1,16 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import format from "date-fns/format"
-import { Segment, Item, Icon, List, Button, Label } from "semantic-ui-react"
-
-import EventListAttendee from "./EventListAttendee"
-import { objToArr } from "../../../app/common/utils/helpers"
-
-const renderAttendees = attendees =>
-  attendees &&
-  objToArr(attendees).map(attendee => (
-    <EventListAttendee key={attendee.id} attendee={attendee} />
-  ))
+import { Segment, Item, Label } from "semantic-ui-react"
 
 const EventListItem = ({ event }) => (
   <Segment.Group>

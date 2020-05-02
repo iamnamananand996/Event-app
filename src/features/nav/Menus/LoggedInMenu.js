@@ -2,12 +2,12 @@ import React from "react"
 import { Link, NavLink } from "react-router-dom"
 import { Menu, Image, Dropdown } from "semantic-ui-react"
 
-const LoggedInMenu = ({ signOut, profile, auth }) => (
+const LoggedInMenu = ({ signOut, profile, auth, notificationCount }) => (
   <Menu.Item position="right">
     <Menu.Item
       as={NavLink}
       to="/notification"
-      name="Notification"
+      name={String(notificationCount)}
       icon="bell"
     />
     <Image avatar spaced="right" src={profile.photoURL || "/assets/user.png"} />
