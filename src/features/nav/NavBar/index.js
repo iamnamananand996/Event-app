@@ -14,14 +14,6 @@ class NavBar extends Component {
   state = {
     notificationCount: 0
   }
-
-  async getCount() {
-    const firestore = firebase.firestore()
-    const eventsRef = await firestore.collection("activity").get()
-    console.log("did mount", eventsRef.docs.length)
-    this.setState({ notificationCount: eventsRef.docs.length })
-  }
-
   async componentDidUpdate() {
     const firestore = firebase.firestore()
     const eventsRef = await firestore.collection("activity").get()

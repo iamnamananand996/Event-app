@@ -58,6 +58,7 @@ class EventForm extends Component {
                 showTimeSelect
                 placeholder="Event Date"
               />
+
               <Button
                 positive
                 type="submit"
