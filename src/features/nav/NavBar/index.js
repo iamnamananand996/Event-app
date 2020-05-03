@@ -15,10 +15,17 @@ class NavBar extends Component {
     notificationCount: 0
   }
 
-  async componentDidMount() {
+  async getCount() {
     const firestore = firebase.firestore()
     const eventsRef = await firestore.collection("activity").get()
     console.log("did mount", eventsRef.docs.length)
+    this.setState({ notificationCount: eventsRef.docs.length })
+  }
+
+  async componentDidUpdate() {
+    const firestore = firebase.firestore()
+    const eventsRef = await firestore.collection("activity").get()
+    // console.log("did mount", eventsRef.docs.length)
     this.setState({ notificationCount: eventsRef.docs.length })
   }
 
@@ -38,7 +45,6 @@ class NavBar extends Component {
   render() {
     const { auth, profile } = this.props
     const authenticated = auth.isLoaded && !auth.isEmpty
-
     return (
       <Menu inverted fixed="top">
         <Container>
@@ -60,7 +66,6 @@ class NavBar extends Component {
                   as={Link}
                   to="/createEvent"
                   floated="right"
-                  orange
                   inverted
                   content="Create Event"
                 />
